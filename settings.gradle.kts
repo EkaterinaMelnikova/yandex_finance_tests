@@ -1,0 +1,1 @@
+rootProject.name = "yandex_finance_tests"
