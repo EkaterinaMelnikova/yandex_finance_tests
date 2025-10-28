@@ -1,24 +1,28 @@
 package com.kimo;
 
+import Pages.FinancePage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
-public class FinancePageTests extends TestBase {
+
+public class FinancePageTestsPOM extends TestBase {
+
+    FinancePage financePage = new FinancePage();
 
     String pageName = "Курсы валют";
+
 
     @Test
     @DisplayName("Проверка перехода в окно Курсы валют по кнопке Валюты > Показать все")
     void openCurrenciesPageTest() {
-        open("/finance");
-        $(".FinanceDailyTrends-ListItem_item_currency").click();
-        $(".FinanceDailyTrends-Link").click();
-        $(".FinancePageHeader-Title").shouldBe(visible);
-        $(".FinancePageHeader-Title").shouldHave(text(pageName));
+
+        financePage.openPage()
+                .clickLinkCurrencies()
+                .clickLinkShowAll()
+                .checkPageName(pageName);
     }
 
     @Test
@@ -27,11 +31,9 @@ public class FinancePageTests extends TestBase {
 
         String searchText = "валют";
 
-        open("/finance");
-        $("textarea[placeholder='Найти финансовый продукт']").click();
-        $("textarea[placeholder='Найти финансовый продукт']").setValue(searchText);
-        $("textarea[placeholder='Найти финансовый продукт']").pressEnter();
-        $(".FinancePageHeader-Title").shouldHave(text(pageName));
+        financePage.openPage()
+                .enterSearchQuery(searchText)
+                .checkPageName(pageName);
     }
 
 
@@ -41,8 +43,10 @@ public class FinancePageTests extends TestBase {
 
         String linkText = "Курсы валют";
 
-        open("/finance");
-        $$(".Link_theme_neoblueDark").findBy(text(linkText)).click();
-        $(".FinancePageHeader-Title").shouldHave(text(pageName));
+        financePage.openPage()
+                .selectFromPopularQueries(linkText)
+                .checkPageName(pageName);
     }
+
+
 }
