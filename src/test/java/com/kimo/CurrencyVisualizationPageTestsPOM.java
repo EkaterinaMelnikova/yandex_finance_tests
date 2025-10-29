@@ -1,6 +1,8 @@
 package com.kimo;
 
 import Pages.CurrencyVisualizationPage;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +24,8 @@ public class CurrencyVisualizationPageTestsPOM extends TestBase {
     @Test
     @DisplayName("Проверка актуальности даты текущего курса")
     void checkCurrentDate() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
 
         currencyVisualizationPage.openPage(currencyName)
                 .pageDateShouldMatchCurrentDate();

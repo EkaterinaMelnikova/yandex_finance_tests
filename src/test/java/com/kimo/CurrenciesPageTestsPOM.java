@@ -1,6 +1,8 @@
 package com.kimo;
 
 import Pages.CurrenciesPage;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +31,8 @@ public class CurrenciesPageTestsPOM extends TestBase {
     @Test
     @DisplayName("Проверка увеличения количества отображаемых валют по нажатию Показать еще")
     void expandCurrencyListOnShowMoreClick() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
 
         int currencyAmount = 7;
         int currencyAmount1 = 17;

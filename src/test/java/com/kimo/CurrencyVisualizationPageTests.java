@@ -1,6 +1,8 @@
 package com.kimo;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,7 @@ public class CurrencyVisualizationPageTests extends TestBase {
     @Test
     @DisplayName("Проверка актуальности даты текущего курса")
     void checkCurrentDate() {
+
         open("/finance/currencies/" + currencyName + "_RUB");
         String currentDate = LocalDate.now()
                 .format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
@@ -32,6 +35,7 @@ public class CurrencyVisualizationPageTests extends TestBase {
     @Test
     @DisplayName("Проверка отображения конвертируемой валюты после ее смены")
     void checkCurrencyChange() {
+
         open("/finance/currencies/" + currencyName + "_RUB");
         $("button[aria-label='Валюта: " + currencyName +"']").click();
         $(byText("Австралийский доллар")).click();
@@ -42,6 +46,7 @@ public class CurrencyVisualizationPageTests extends TestBase {
     @Test
     @DisplayName("Поверка отображения валют после нажатия кнопки Поменять местами значения")
     void chengeCurrencyPlaces() {
+
         open("/finance/currencies/" + currencyName + "_RUB");
         String currency1 = $("button[aria-describedby='«R4j»']").getText();
         System.out.println(currency1);
